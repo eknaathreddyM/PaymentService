@@ -13,11 +13,8 @@ public class UserController {
 
    @Autowired
    private UserService userService;
+   
 
-   @GetMapping
-   public String welocome(){
-       return "user-service";
-   }
     @PostMapping("/user")
     public Long createUser(@RequestBody @Valid UserDto userdto){
         return userService.createUser(userdto);

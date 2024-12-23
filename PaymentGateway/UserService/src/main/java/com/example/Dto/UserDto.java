@@ -1,6 +1,8 @@
 package com.example.Dto;
 
+import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+
 
 public class UserDto {
 
