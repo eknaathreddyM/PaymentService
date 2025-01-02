@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.Config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -10,27 +10,26 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import java.beans.BeanProperty;
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 public class KafkaConfig {
-    @Value("${kafka.bootStrapAddress}")
+    @Value("${spring.kafka.bootstrap-servers}")
     private String server;
 
     @Bean
-    public ProducerFactory<String, Object> producerFactory(){
+    public ProducerFactory producerFactory(){
         Map<String,Object> config=new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,server);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 
-        return new DefaultKafkaProducerFactory<String, Object>(config);
+        return new DefaultKafkaProducerFactory(config);
     }
 
     @Bean
-    public KafkaTemplate<String, Object> kafkaTemplate(ProducerFactory<String, Object> producerFactory){
+    public KafkaTemplate kafkaTemplate(ProducerFactory producerFactory){
         return  new KafkaTemplate<String, Object>(producerFactory);
     }
 }
